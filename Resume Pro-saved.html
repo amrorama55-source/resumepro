@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Resume and Cover Letter Tool Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styling - Elegant & Clean */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d7e8cc; /* Background color */
+            color: #3a3c38; /* Neutral dark */
+            line-height: 1.6;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fafaf3; /* Neutral light */
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 { 
+            font-size: 2.5em; 
+            text-align: center; 
+            margin-bottom: 40px; 
+            color: #094602; /* Primary dark */
+            font-weight: 700; 
+            font-family: 'Cairo', sans-serif;
+        }
+        h2 { 
+            font-size: 1.8em; 
+            border-bottom: 2px solid #e5f6da; /* Secondary light */
+            padding-bottom: 10px; 
+            margin-top: 35px; 
+            color: #313f2c; /* Secondary dark */
+            font-family: 'Cairo', sans-serif;
+        }
+        h3 { 
+            font-size: 1.4em; 
+            color: #094602; /* Primary dark */
+            margin-top: 25px; 
+            border-left: 5px solid #094602; /* Primary dark */
+            padding-left: 10px; 
+            font-family: 'Cairo', sans-serif;
+        }
+        p { margin-bottom: 15px; }
+
+        /* Navigation Buttons - Dark & Clear */
+        .option-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .option-button {
+            flex-grow: 1;
+            background-color: #313f2c; /* Secondary dark */
+            color: #fafaf3; /* Neutral light */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 250px;
+        }
+
+        .option-button:hover {
+            background-color: #094602; /* Primary dark */
+            transform: translateY(-2px);
+        }
+
+        .option-button.active {
+            background-color: #094602; /* Primary dark */
+            box-shadow: 0 4px 8px rgba(9, 70, 2, 0.4);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 20px 0;
+            border-top: 1px solid #e5f6da; /* Secondary light */
+            margin-top: 20px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: #edffe1; /* Primary light */
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #e5f6da; /* Secondary light */
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            border-bottom: 1px dotted #a0a09a; /* Lighter neutral dark */
+            padding-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #313f2c; /* Secondary dark */
+            font-size: 1.05em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="url"],
+        .form-group input[type="tel"],
+        .form-group input[type="file"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #a0a09a; /* Lighter neutral dark */
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+            background-color: #fafaf3; /* Neutral light */
+            color: #3a3c38; /* Neutral dark */
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        /* Submission Button */
+        .submit-button {
+            background-color: #094602; /* Primary dark */
+            color: #fafaf3; /* Neutral light */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .submit-button:hover {
+            background-color: #313f2c; /* Secondary dark */
+        }
+        
+        /* Copy Button */
+        .copy-button {
+            background-color: #313f2c; /* Secondary dark */
+            color: #fafaf3; /* Neutral light */
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .copy-button:hover {
+            background-color: #094602; /* Primary dark */
+        }
+
+        /* Preview Area Styling */
+        .generated-preview {
+            background-color: #fafaf3; /* Neutral light */
+            border: 1px solid #e5f6da; /* Secondary light */
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            white-space: pre-wrap; /* Preserves line breaks and spaces */
+            font-size: 1em;
+            line-height: 1.7;
+            text-align: left;
+            direction: ltr;
+            font-family: 'Inter', sans-serif;
+            min-height: 200px; 
+            overflow: auto; 
+            color: #3a3c38; /* Neutral dark */
+        }
+
+        /* Analysis Report Specific Styling */
+        .analysis-report-section {
+            background-color: #edffe1; /* Primary light */
+            border: 1px solid #e5f6da; /* Secondary light */
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .analysis-report-section h3 {
+            color: #094602; /* Primary dark */
+            border-left-color: #094602; /* Primary dark */
+            margin-bottom: 20px;
+        }
+        .analysis-point {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .analysis-point::before {
+            content: '•';
+            color: #094602; /* Primary dark */
+            font-size: 1.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .analysis-point strong {
+            color: #313f2c; /* Secondary dark */
+        }
+        .analysis-score {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #094602; /* Primary dark */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .analysis-motivation {
+            background-color: #e5f6da; /* Secondary light */
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 5px solid #094602; /* Primary dark */
+            margin-top: 20px;
+            font-style: italic;
+            color: #313f2c; /* Secondary dark */
+        }
+
+        /* Hidden textarea for Fallback Copy */
+        #clipboard-helper {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            height: 0;
+            width: 0;
+            opacity: 0;
+        }
+
+        /* Dynamic Entry Styling */
+        .dynamic-entry {
+            border: 1px dashed #a0a09a; /* Lighter neutral dark */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #fafaf3; /* Neutral light */
+        }
+        .dynamic-entry h4 {
+            color: #313f2c; /* Secondary dark */
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .dynamic-entry button {
+            background-color: #de3730; /* Error color */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+            transition: background-color 0.3s ease;
+        }
+        .dynamic-entry button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            h1 { font-size: 2em; margin-bottom: 30px; }
+            h2 { font-size: 1.5em; margin-top: 25px; }
+            h3 { font-size: 1.2em; margin-top: 20px; }
+            .option-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .option-button {
+                min-width: unset;
+                width: 100%;
+            }
+            .form-group label { font-size: 1em; }
+            .submit-button, .copy-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Advanced Resume and Cover Letter Tool Platform</h1>
+
+        <div class="option-buttons">
+            <button class="option-button active" onclick="showSection('analyzeResume', this)">Analyze Existing Resume</button>
+            <button class="option-button" onclick="showSection('createNewResume', this)">Create New Resume</button>
+            <button class="option-button" onclick="showSection('createCoverLetter', this)">Generate Cover Letter</button>
+        </div>
+
+        <div id="analyzeResume" class="content-section active">
+            <h2>Analyze Existing Resume</h2>
+            <p>Upload your resume (PDF/DOCX) for a comprehensive report to ensure ATS compatibility.</p>
+
+            <form id="analyzeResumeForm">
+                <div class="form-group">
+                    <label for="resumeFile">Upload Your Resume (PDF, DOCX):</label>
+                    <input type="file" id="resumeFile" name="resumeFile" accept=".pdf,.doc,.docx" required>
+                </div>
+                <div class="form-group">
+                    <label for="targetRoleAnalyze">Target Job Title (Optional for keyword review):</label>
+                    <input type="text" id="targetRoleAnalyze" name="targetRoleAnalyze" placeholder="e.g., 'Senior Project Manager'">
+                </div>
+                <button type="submit" class="submit-button">Analyze Resume and Generate Report</button>
+            </form>
+
+            <div id="analysisResults" class="analysis-report-section" style="display: none;">
+                <h3>Generated Analysis Report:</h3>
+                <div class="generated-preview">
+                    <div class="analysis-score">Overall ATS Compatibility Score: 88%</div>
+                    <div class="analysis-point"><strong>1. Strengths:</strong>
+                        <ul>
+                            <li>Clear and concise professional summary.</li>
+                            <li>Strong action verbs used throughout work experience.</li>
+                            <li>Quantifiable achievements in key roles.</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-point"><strong>2. Weaknesses:</strong>
+                        <ul>
+                            <li>Inconsistent date formatting in education section.</li>
+                            <li>Lack of specific industry keywords for 'Data Scientist' role.</li>
+                            <li>Some bullet points are too long, reducing scannability.</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-point"><strong>3. Keyword Review:</strong>
+                        <ul>
+                            <li>Missing keywords: "Machine Learning", "Deep Learning Frameworks (TensorFlow/PyTorch)", "Big Data".</li>
+                            <li>Good use of "Python", "SQL", "Statistical Analysis".</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-point"><strong>4. Suitable Job Suggestions:</strong>
+                        <p>Based on your profile, you are well-suited for roles such as: Junior Data Scientist, Business Intelligence Analyst, Data Analyst, Machine Learning Engineer (entry-level).</p>
+                    </div>
+                    <div class="analysis-point"><strong>5. Recommendations & Tips:</strong>
+                        <ul>
+                            <li>Tailor your resume for each application by incorporating keywords from the job description.</li>
+                            <li>Consider adding a "Projects" section to showcase practical application of skills.</li>
+                            <li>Network actively on LinkedIn and attend industry webinars.</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-point"><strong>6. Suggested Improvements:</strong>
+                        <ul>
+                            <li>Standardize all dates to "MM/YYYY – MM/YYYY" format.</li>
+                            <li>Add a dedicated "Technical Skills" section with specific tools and frameworks.</li>
+                            <li>Rephrase longer bullet points into two shorter, impactful ones.</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-point"><strong>7. Motivational Advice:</strong>
+                        <div class="analysis-motivation">
+                            "Your foundation is strong! With a few strategic adjustments, your resume will shine even brighter. Keep refining, keep learning, and your ideal opportunity will come. Every 'no' brings you closer to a 'yes'!"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="createNewResume" class="content-section">
+            <h2>Create New Resume</h2>
+            <p>Enter your information below. Empty fields will be automatically excluded in the final output for a clean resume format.</p>
+
+            <form id="createResumeForm">
+                
+                <h3>1. Contact Information</h3>
+                <div class="form-group"><label for="fullName">Full Name:</label><input type="text" id="fullName" name="fullName" placeholder="John Doe" required></div>
+                <div class="form-group"><label for="phone">Phone Number:</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567"></div>
+                <div class="form-group"><label for="email">Email:</label><input type="email" id="email" name="email" placeholder="john.doe@example.com" required></div>
+                <div class="form-group"><label for="location">Location (City, State/Country):</label><input type="text" id="location" name="location" placeholder="New York, NY"></div>
+                <div class="form-group"><label for="linkedin">LinkedIn Profile (Optional):</label><input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/johndoe"></div>
+                <div class="form-group"><label for="github">GitHub/Portfolio (Optional):</label><input type="url" id="github" name="github" placeholder="https://github.com/johndoe"></div>
+
+                <h3>2. Professional Summary</h3>
+                <div class="form-group"><label for="summary">Summary of your experience and skills (2-4 sentences):</label><textarea id="summary" name="summary" placeholder="Highly motivated software engineer with 5+ years of experience in developing scalable web applications. Proficient in Python, JavaScript, and cloud platforms. Seeking to leverage expertise in a challenging role."></textarea></div>
+
+                <h3>3. Core Skills / Competencies</h3>
+                <div class="form-group"><label for="skills">Key Skills (Technical, Soft, Certifications - separated by commas):</label><textarea id="skills" name="skills" placeholder="Python, JavaScript, React, AWS, SQL, Agile, Project Management, Communication, PMP"></textarea></div>
+
+                <h3>4. Work Experience</h3>
+                <div id="workExperienceContainer">
+                    <div class="dynamic-entry work-experience-entry">
+                        <h4>Experience 1</h4>
+                        <div class="form-group"><label for="jobTitle1">Job Title:</label><input type="text" id="jobTitle1" name="jobTitle[]" placeholder="Senior Software Engineer" required></div>
+                        <div class="form-group"><label for="companyName1">Company Name:</label><input type="text" id="companyName1" name="companyName[]" placeholder="Tech Solutions Inc." required></div>
+                        <div class="form-group"><label for="jobLocation1">Job Location (City/Region):</label><input type="text" id="jobLocation1" name="jobLocation[]" placeholder="San Francisco, CA" required></div>
+                        <div class="form-group"><label for="duration1">Duration (e.g., May 2020 – Present):</label><input type="text" id="duration1" name="duration[]" placeholder="May 2020 – Present" required></div>
+                        <div class="form-group"><label for="responsibilities1">Key Responsibilities and Achievements (use bullet points):</label><textarea id="responsibilities1" name="responsibilities[]" placeholder="- Led a team of 5 engineers in developing a new microservices architecture, reducing latency by 20%&#10;- Implemented CI/CD pipelines, improving deployment frequency by 50%&#10;- Mentored junior developers and conducted code reviews"></textarea></div>
+                        <button type="button" onclick="removeWorkExperience(this)">Delete This Entry</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <button type="button" onclick="addWorkExperience()" class="submit-button" style="width: auto; margin-top: 10px; background-color: #313f2c;">+ Add More Experience</button>
+
+                <h3>5. Education</h3>
+                <div id="educationContainer" style="margin-top: 20px;">
+                    <div class="dynamic-entry education-entry">
+                        <h4>Education 1</h4>
+                        <div class="form-group"><label for="degree1">Degree Name:</label><input type="text" id="degree1" name="degree[]" placeholder="Master of Science in Computer Science"></div>
+                        <div class="form-group"><label for="institution1">Institution Name:</label><input type="text" id="institution1" name="institution[]" placeholder="Stanford University"></div>
+                        <div class="form-group"><label for="yearGrad1">Graduation Year (e.g., May 2022):</label><input type="text" id="yearGrad1" name="yearGrad[]" placeholder="May 2022"></div>
+                        <div class="form-group"><label for="eduAchievements1">Relevant Coursework or Achievements (Optional):</label><textarea id="eduAchievements1" name="eduAchievements[]" placeholder="Dean's List, GPA: 3.9/4.0, Thesis: 'AI in Healthcare'"></textarea></div>
+                        <button type="button" onclick="removeEducation(this)">Delete This Qualification</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <button type="button" onclick="addEducation()" class="submit-button" style="width: auto; margin-top: 10px; background-color: #313f2c;">+ Add More Education</button>
+                
+                <h3>6. Certifications & Training</h3>
+                <div id="certificationsContainer" style="margin-top: 20px;">
+                    <div class="dynamic-entry certification-entry">
+                        <h4>Certification 1</h4>
+                        <div class="form-group"><label for="certName1">Certification Name:</label><input type="text" id="certName1" name="certName[]" placeholder="Certified Scrum Master (CSM)"></div>
+                        <div class="form-group"><label for="certOrg1">Issuing Organization:</label><input type="text" id="certOrg1" name="certOrg[]" placeholder="Scrum Alliance"></div>
+                        <div class="form-group"><label for="certYear1">Year Obtained:</label><input type="text" id="certYear1" name="certYear[]" placeholder="2021"></div>
+                        <button type="button" onclick="removeCertification(this)">Delete This Certification</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <button type="button" onclick="addCertification()" class="submit-button" style="width: auto; margin-top: 10px; background-color: #313f2c;">+ Add More Certification</button>
+
+                <h3>7. Projects (Optional)</h3>
+                <div id="projectsContainer" style="margin-top: 20px;">
+                    <div class="dynamic-entry project-entry">
+                        <h4>Project 1</h4>
+                        <div class="form-group"><label for="projectName1">Project Name:</label><input type="text" id="projectName1" name="projectName[]" placeholder="E-commerce Recommendation Engine"></div>
+                        <div class="form-group"><label for="projectDesc1">Project Description:</label><textarea id="projectDesc1" name="projectDesc[]" placeholder="Developed a personalized product recommendation engine using collaborative filtering."></textarea></div>
+                        <div class="form-group"><label for="projectTech1">Technologies Used:</label><input type="text" id="projectTech1" name="projectTech[]" placeholder="Python, Pandas, Scikit-learn, Flask"></div>
+                        <div class="form-group"><label for="projectOutcome1">Outcome/Achievement:</label><textarea id="projectOutcome1" name="projectOutcome[]" placeholder="Increased user engagement by 15% and conversion rates by 5%."></textarea></div>
+                        <button type="button" onclick="removeProject(this)">Delete This Project</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <button type="button" onclick="addProject()" class="submit-button" style="width: auto; margin-top: 10px; background-color: #313f2c;">+ Add More Project</button>
+
+                <h3>8. Languages</h3>
+                <div class="form-group" style="margin-top: 30px;"><label for="languages">Languages (e.g., English - Native, Spanish - Fluent):</label><textarea id="languages" name="languages" placeholder="English - Native, Spanish - Fluent, French - Intermediate"></textarea></div>
+
+                <button type="submit" class="submit-button">Generate and Preview Resume</button>
+            </form>
+
+            <div id="generatedResumeOutput" class="analysis-report-section" style="display: none;">
+                <h3>Generated Resume Preview:</h3>
+                <div id="resumeTextPreview" class="generated-preview">
+                    <!-- Resume content will be dynamically inserted here -->
+                </div>
+                <button class="copy-button" onclick="copyContent('resumeTextPreview', this)">Copy Resume</button>
+            </div>
+        </div>
+
+        <div id="createCoverLetter" class="content-section">
+            <h2>Generate Cover Letter</h2>
+            <p>Please provide the details below to generate a tailored cover letter.</p>
+
+            <form id="createCoverLetterForm">
+                
+                <h3>1. Personal & Contact Information</h3>
+                <div class="form-group"><label for="cl_fullName">Full Name:</label><input type="text" id="cl_fullName" name="cl_fullName" placeholder="Jane Doe" required></div>
+                <div class="form-group"><label for="cl_email">Email:</label><input type="email" id="cl_email" name="cl_email" placeholder="jane.doe@example.com" required></div>
+                <div class="form-group"><label for="cl_phone">Phone Number (Optional):</label><input type="tel" id="cl_phone" name="cl_phone" placeholder="+1 (555) 987-6543"></div>
+                <div class="form-group"><label for="cl_linkedin">LinkedIn Profile URL (Optional):</label><input type="url" id="cl_linkedin" name="cl_linkedin" placeholder="https://linkedin.com/in/janedoe"></div>
+
+                <h3>2. Target Job & Application Details</h3>
+                <div class="form-group"><label for="cl_jobTitle">Exact Job Title:</label><input type="text" id="cl_jobTitle" name="cl_jobTitle" placeholder="Marketing Specialist" required></div>
+                <div class="form-group"><label for="cl_companyName">Company Name:</label><input type="text" id="cl_companyName" name="cl_companyName" placeholder="Innovate Marketing Solutions" required></div>
+                <div class="form-group"><label for="cl_hiringManager">Hiring Manager/Recruiter Name (Optional):</label><input type="text" id="cl_hiringManager" name="cl_hiringManager" placeholder="Ms. Sarah Chen"></div>
+                <div class="form-group"><label for="cl_jobPostingLink">Link to the Job Posting:</label><input type="url" id="cl_jobPostingLink" name="cl_jobPostingLink" placeholder="https://innovatemarketing.com/careers/marketing-specialist" required></div>
+
+                <h3>3. Background & Key Selling Points</h3>
+                <div class="form-group"><label for="cl_motivation">Why are you applying for this specific job? (2-3 sentences):</label><textarea id="cl_motivation" name="cl_motivation" required placeholder="I am deeply impressed by Innovate Marketing Solutions' innovative campaigns and commitment to client success. My passion for digital marketing and proven ability to drive engagement align perfectly with the Marketing Specialist role, and I am eager to contribute to your dynamic team."></textarea></div>
+                
+                <div class="form-group">
+                    <label>Top 3 Relevant Achievements (with results/metrics):</label>
+                    <input type="text" id="cl_achievement1" name="cl_achievement1" placeholder="Achievement 1: Managed social media campaigns that increased brand engagement by 30%." required>
+                    <input type="text" id="cl_achievement2" name="cl_achievement2" placeholder="Achievement 2: Developed content strategies that boosted website traffic by 25%." style="margin-top: 10px;">
+                    <input type="text" id="cl_achievement3" name="cl_achievement3" placeholder="Achievement 3: Successfully launched 2 new product lines, exceeding sales targets by 10%." style="margin-top: 10px;">
+                </div>
+                <div class="form-group"><label for="cl_biggestSkill">What is the biggest skill or strength they should focus on?</label><input type="text" id="cl_biggestSkill" name="cl_biggestSkill" placeholder="Strategic Content Creation and Digital Campaign Management"></div>
+                <div class="form-group"><label for="cl_additionalNotes">Any additional notes or specific requests? (Optional)</label><textarea id="cl_additionalNotes" name="cl_additionalNotes" placeholder="I am particularly excited about the opportunity to work on innovative projects mentioned in the job description."></textarea></div>
+
+                <button type="submit" class="submit-button">Generate and Preview Cover Letter</button>
+            </form>
+            
+            <div id="generatedCoverLetterOutput" class="analysis-report-section" style="display: none;">
+                <h3>Generated Cover Letter Preview:</h3>
+                <div id="coverLetterTextPreview" class="generated-preview">
+                    <!-- Cover letter content will be dynamically inserted here -->
+                </div>
+                <button class="copy-button" onclick="copyContent('coverLetterTextPreview', this)">Copy Cover Letter</button>
+            </div>
+        </div>
+        
+        <textarea id="clipboard-helper"></textarea>
+
+    </div>
+
+    <script>
+        // --- JavaScript Functions ---
+
+        // Tab Switching Logic
+        function showSection(sectionId, clickedButton) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.option-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            clickedButton.classList.add('active');
+        }
+
+        // --- Copy Content Function ---
+        function copyContent(elementId, button) {
+            const contentElement = document.getElementById(elementId);
+            const textToCopy = contentElement.innerText; 
+            
+            const giveFeedback = (success) => {
+                const originalText = button.getAttribute('data-original-text') || button.innerText;
+                const successText = '✅ Copied!';
+                const errorText = '❌ Copy Failed';
+                const successColor = '#094602'; /* Primary dark */
+                const errorColor = '#de3730'; /* Error color */
+                const originalColor = '#313f2c'; /* Secondary dark */
+                
+                button.setAttribute('data-original-text', originalText);
+                
+                if (success) {
+                    button.innerText = successText;
+                    button.style.backgroundColor = successColor;
+                } else {
+                    button.innerText = errorText;
+                    button.style.backgroundColor = errorColor;
+                }
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = originalColor;
+                }, 1500);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        giveFeedback(true);
+                    })
+                    .catch(err => {
+                        console.error('Clipboard API failed:', err);
+                        fallbackCopy(textToCopy, giveFeedback);
+                    });
+            } else {
+                fallbackCopy(textToCopy, giveFeedback);
+            }
+        }
+
+        function fallbackCopy(text, giveFeedback) {
+            const textarea = document.getElementById('clipboard-helper');
+            textarea.value = text;
+            
+            textarea.style.display = 'block'; 
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                giveFeedback(true);
+            } catch (err) {
+                giveFeedback(false);
+                alert('Automatic copy failed! Please select the text in the preview box above and copy it manually (Ctrl+C or Cmd+C).');
+            }
+            textarea.style.display = 'none'; 
+        }
+        
+        // Dynamic Form Field Logic (Work Experience)
+        let workExperienceCount = 1;
+        function addWorkExperience() {
+            workExperienceCount++;
+            const container = document.getElementById('workExperienceContainer');
+            const newEntry = document.createElement('div');
+            newEntry.classList.add('dynamic-entry', 'work-experience-entry');
+            newEntry.innerHTML = `
+                <h4>Experience ${workExperienceCount}</h4>
+                <div class="form-group"><label for="jobTitle${workExperienceCount}">Job Title:</label><input type="text" id="jobTitle${workExperienceCount}" name="jobTitle[]" required></div>
+                <div class="form-group"><label for="companyName${workExperienceCount}">Company Name:</label><input type="text" id="companyName${workExperienceCount}" name="companyName[]" required></div>
+                <div class="form-group"><label for="jobLocation${workExperienceCount}">Job Location (City/Region):</label><input type="text" id="jobLocation${workExperienceCount}" name="jobLocation[]" required></div>
+                <div class="form-group"><label for="duration${workExperienceCount}">Duration:</label><input type="text" id="duration${workExperienceCount}" name="duration[]" required></div>
+                <div class="form-group"><label for="responsibilities${workExperienceCount}">Key Responsibilities and Achievements:</label><textarea id="responsibilities${workExperienceCount}" name="responsibilities[]" placeholder="- Managed a team of 5 engineers&#10;- Increased project efficiency by 15%"></textarea></div>
+                <button type="button" onclick="removeWorkExperience(this)">Delete This Entry</button>
+                 <div style="clear: both;"></div>
+            `;
+            container.appendChild(newEntry);
+        }
+        function removeWorkExperience(button) { button.closest('.work-experience-entry').remove(); }
+
+        // Dynamic Form Field Logic (Education)
+        let educationCount = 1;
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('educationContainer');
+            const newEntry = document.createElement('div');
+            newEntry.classList.add('dynamic-entry', 'education-entry');
+            newEntry.innerHTML = `
+                <h4>Education ${educationCount}</h4>
+                <div class="form-group"><label for="degree${educationCount}">Degree Name:</label><input type="text" id="degree${educationCount}" name="degree[]"></div>
+                <div class="form-group"><label for="institution${educationCount}">Institution Name:</label><input type="text" id="institution${educationCount}" name="institution[]"></div>
+                <div class="form-group"><label for="yearGrad${educationCount}">Graduation Year:</label><input type="text" id="yearGrad${educationCount}" name="yearGrad[]"></div>
+                <div class="form-group"><label for="eduAchievements${educationCount}">Relevant Coursework or Achievements (Optional):</label><textarea id="eduAchievements${educationCount}" name="eduAchievements[]"></textarea></div>
+                <button type="button" onclick="removeEducation(this)">Delete This Qualification</button>
+                 <div style="clear: both;"></div>
+            `;
+            container.appendChild(newEntry);
+        }
+        function removeEducation(button) { button.closest('.education-entry').remove(); }
+
+        // Dynamic Form Field Logic (Certifications)
+        let certificationCount = 1;
+        function addCertification() {
+            certificationCount++;
+            const container = document.getElementById('certificationsContainer');
+            const newEntry = document.createElement('div');
+            newEntry.classList.add('dynamic-entry', 'certification-entry');
+            newEntry.innerHTML = `
+                <h4>Certification ${certificationCount}</h4>
+                <div class="form-group"><label for="certName${certificationCount}">Certification Name:</label><input type="text" id="certName${certificationCount}" name="certName[]"></div>
+                <div class="form-group"><label for="certOrg${certificationCount}">Issuing Organization:</label><input type="text" id="certOrg${certificationCount}" name="certOrg[]"></div>
+                <div class="form-group"><label for="certYear${certificationCount}">Year Obtained:</label><input type="text" id="certYear${certificationCount}" name="certYear[]"></div>
+                <button type="button" onclick="removeCertification(this)">Delete This Certification</button>
+                <div style="clear: both;"></div>
+            `;
+            container.appendChild(newEntry);
+        }
+        function removeCertification(button) { button.closest('.certification-entry').remove(); }
+
+        // Dynamic Form Field Logic (Projects)
+        let projectCount = 1;
+        function addProject() {
+            projectCount++;
+            const container = document.getElementById('projectsContainer');
+            const newEntry = document.createElement('div');
+            newEntry.classList.add('dynamic-entry', 'project-entry');
+            newEntry.innerHTML = `
+                <h4>Project ${projectCount}</h4>
+                <div class="form-group"><label for="projectName${projectCount}">Project Name:</label><input type="text" id="projectName${projectCount}" name="projectName[]"></div>
+                <div class="form-group"><label for="projectDesc${projectCount}">Project Description:</label><textarea id="projectDesc${projectCount}" name="projectDesc[]"></textarea></div>
+                <div class="form-group"><label for="projectTech${projectCount}">Technologies Used:</label><input type="text" id="projectTech${projectCount}" name="projectTech[]"></div>
+                <div class="form-group"><label for="projectOutcome${projectCount}">Outcome/Achievement:</label><textarea id="projectOutcome${projectCount}" name="projectOutcome[]"></textarea></div>
+                <button type="button" onclick="removeProject(this)">Delete This Project</button>
+                <div style="clear: both;"></div>
+            `;
+            container.appendChild(newEntry);
+        }
+        function removeProject(button) { button.closest('.project-entry').remove(); }
+        
+        // Form Submission Handlers (Now just for display/preview)
+        
+        document.getElementById('analyzeResumeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // In a real app, file upload and processing logic would be here.
+            // For this demo, we just show the pre-filled analysis report.
+            document.getElementById('analysisResults').style.display = 'block';
+            // Scroll to results
+            document.getElementById('analysisResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        document.getElementById('createResumeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const resumeData = {};
+
+            // Collect contact info
+            resumeData.fullName = formData.get('fullName');
+            resumeData.phone = formData.get('phone');
+            resumeData.email = formData.get('email');
+            resumeData.location = formData.get('location');
+            resumeData.linkedin = formData.get('linkedin');
+            resumeData.github = formData.get('github');
+            resumeData.summary = formData.get('summary');
+            resumeData.skills = formData.get('skills');
+            resumeData.languages = formData.get('languages');
+
+            // Collect dynamic sections
+            resumeData.workExperience = [];
+            document.querySelectorAll('#workExperienceContainer .work-experience-entry').forEach((entry, index) => {
+                const jobTitle = entry.querySelector(`[name="jobTitle[]"]`).value;
+                const companyName = entry.querySelector(`[name="companyName[]"]`).value;
+                const jobLocation = entry.querySelector(`[name="jobLocation[]"]`).value;
+                const duration = entry.querySelector(`[name="duration[]"]`).value;
+                const responsibilities = entry.querySelector(`[name="responsibilities[]"]`).value;
+                if (jobTitle && companyName && duration) {
+                    resumeData.workExperience.push({ jobTitle, companyName, jobLocation, duration, responsibilities });
+                }
+            });
+
+            resumeData.education = [];
+            document.querySelectorAll('#educationContainer .education-entry').forEach((entry, index) => {
+                const degree = entry.querySelector(`[name="degree[]"]`).value;
+                const institution = entry.querySelector(`[name="institution[]"]`).value;
+                const yearGrad = entry.querySelector(`[name="yearGrad[]"]`).value;
+                const eduAchievements = entry.querySelector(`[name="eduAchievements[]"]`).value;
+                if (degree && institution) {
+                    resumeData.education.push({ degree, institution, yearGrad, eduAchievements });
+                }
+            });
+
+            resumeData.certifications = [];
+            document.querySelectorAll('#certificationsContainer .certification-entry').forEach((entry, index) => {
+                const certName = entry.querySelector(`[name="certName[]"]`).value;
+                const certOrg = entry.querySelector(`[name="certOrg[]"]`).value;
+                const certYear = entry.querySelector(`[name="certYear[]"]`).value;
+                if (certName && certOrg) {
+                    resumeData.certifications.push({ certName, certOrg, certYear });
+                }
+            });
+
+            resumeData.projects = [];
+            document.querySelectorAll('#projectsContainer .project-entry').forEach((entry, index) => {
+                const projectName = entry.querySelector(`[name="projectName[]"]`).value;
+                const projectDesc = entry.querySelector(`[name="projectDesc[]"]`).value;
+                const projectTech = entry.querySelector(`[name="projectTech[]"]`).value;
+                const projectOutcome = entry.querySelector(`[name="projectOutcome[]"]`).value;
+                if (projectName && projectDesc) {
+                    resumeData.projects.push({ projectName, projectDesc, projectTech, projectOutcome });
+                }
+            });
+
+            generateResumePreview(resumeData);
+            document.getElementById('generatedResumeOutput').style.display = 'block';
+            document.getElementById('generatedResumeOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function generateResumePreview(data) {
+            let resumeHtml = '';
+
+            // Contact Info
+            if (data.fullName) {
+                resumeHtml += `<p style="text-align: center; font-size: 1.5em; font-weight: 700; color: #094602;">${data.fullName}</p>`;
+            }
+            const contactLines = [];
+            if (data.email) contactLines.push(data.email);
+            if (data.phone) contactLines.push(data.phone);
+            if (data.location) contactLines.push(data.location);
+            if (data.linkedin) contactLines.push(`<a href="${data.linkedin}" target="_blank" style="color: #313f2c; text-decoration: none;">LinkedIn</a>`);
+            if (data.github) contactLines.push(`<a href="${data.github}" target="_blank" style="color: #313f2c; text-decoration: none;">Portfolio</a>`);
+            if (contactLines.length > 0) {
+                resumeHtml += `<p style="text-align: center; margin-bottom: 20px;">${contactLines.join(' | ')}</p>`;
+            }
+            resumeHtml += `<hr style="margin: 15px 0; border-color: #e5f6da;">`;
+
+            // Summary
+            if (data.summary) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">SUMMARY</p>`;
+                resumeHtml += `<p>${data.summary}</p>`;
+            }
+
+            // Skills
+            if (data.skills) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">SKILLS</p>`;
+                resumeHtml += `<p>${data.skills}</p>`;
+            }
+
+            // Work Experience
+            if (data.workExperience && data.workExperience.length > 0) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">PROFESSIONAL EXPERIENCE</p>`;
+                data.workExperience.forEach(exp => {
+                    resumeHtml += `<p style="margin-top: 10px;"><strong>${exp.jobTitle}</strong> | ${exp.companyName}, ${exp.jobLocation} | ${exp.duration}</p>`;
+                    if (exp.responsibilities) {
+                        resumeHtml += `<ul>`;
+                        exp.responsibilities.split('\n').filter(line => line.trim() !== '').forEach(line => {
+                            resumeHtml += `<li>${line.replace(/^- /, '').trim()}</li>`;
+                        });
+                        resumeHtml += `</ul>`;
+                    }
+                });
+            }
+
+            // Education
+            if (data.education && data.education.length > 0) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">EDUCATION</p>`;
+                data.education.forEach(edu => {
+                    resumeHtml += `<p style="margin-top: 10px;"><strong>${edu.degree}</strong> | ${edu.institution} | ${edu.yearGrad}</p>`;
+                    if (edu.eduAchievements) {
+                        resumeHtml += `<p style="margin-left: 20px; font-style: italic;">${edu.eduAchievements}</p>`;
+                    }
+                });
+            }
+
+            // Certifications
+            if (data.certifications && data.certifications.length > 0) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">CERTIFICATIONS & TRAINING</p>`;
+                data.certifications.forEach(cert => {
+                    resumeHtml += `<p style="margin-top: 10px;"><strong>${cert.certName}</strong> | ${cert.certOrg} | ${cert.certYear}</p>`;
+                });
+            }
+
+            // Projects
+            if (data.projects && data.projects.length > 0) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">PROJECTS</p>`;
+                data.projects.forEach(proj => {
+                    resumeHtml += `<p style="margin-top: 10px;"><strong>${proj.projectName}</strong></p>`;
+                    if (proj.projectDesc) resumeHtml += `<p style="margin-left: 20px;">${proj.projectDesc}</p>`;
+                    if (proj.projectTech) resumeHtml += `<p style="margin-left: 20px; font-style: italic;">Technologies: ${proj.projectTech}</p>`;
+                    if (proj.projectOutcome) resumeHtml += `<p style="margin-left: 20px;">Outcome: ${proj.projectOutcome}</p>`;
+                });
+            }
+
+            // Languages
+            if (data.languages) {
+                resumeHtml += `<p style="font-size: 1.2em; font-weight: 700; color: #094602; margin-top: 20px;">LANGUAGES</p>`;
+                resumeHtml += `<p>${data.languages}</p>`;
+            }
+
+            document.getElementById('resumeTextPreview').innerHTML = resumeHtml;
+        }
+
+
+        document.getElementById('createCoverLetterForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const clData = {};
+
+            clData.fullName = formData.get('cl_fullName');
+            clData.email = formData.get('cl_email');
+            clData.phone = formData.get('cl_phone');
+            clData.linkedin = formData.get('cl_linkedin');
+            clData.jobTitle = formData.get('cl_jobTitle');
+            clData.companyName = formData.get('cl_companyName');
+            clData.hiringManager = formData.get('cl_hiringManager');
+            clData.jobPostingLink = formData.get('cl_jobPostingLink');
+            clData.motivation = formData.get('cl_motivation');
+            clData.achievement1 = formData.get('cl_achievement1');
+            clData.achievement2 = formData.get('cl_achievement2');
+            clData.achievement3 = formData.get('cl_achievement3');
+            clData.biggestSkill = formData.get('cl_biggestSkill');
+            clData.additionalNotes = formData.get('cl_additionalNotes');
+
+            generateCoverLetterPreview(clData);
+            document.getElementById('generatedCoverLetterOutput').style.display = 'block';
+            document.getElementById('generatedCoverLetterOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function generateCoverLetterPreview(data) {
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = today.toLocaleDateString('en-US', options);
+
+            let coverLetterHtml = `<p>${formattedDate}</p><br>`;
+            
+            // Your Contact Info
+            if (data.fullName) coverLetterHtml += `<p><strong>${data.fullName}</strong></p>`;
+            if (data.email) coverLetterHtml += `<p>${data.email}</p>`;
+            if (data.phone) coverLetterHtml += `<p>${data.phone}</p>`;
+            if (data.linkedin) coverLetterHtml += `<p><a href="${data.linkedin}" target="_blank" style="color: #313f2c; text-decoration: none;">${data.linkedin}</a></p>`;
+            coverLetterHtml += `<br>`;
+
+            // Recipient Info
+            const hiringManager = data.hiringManager || 'Hiring Manager';
+            coverLetterHtml += `<p>Dear ${hiringManager},</p><br>`;
+
+            // Opening Paragraph
+            coverLetterHtml += `<p>I am writing to express my enthusiastic interest in the <strong>${data.jobTitle}</strong> position at <strong>${data.companyName}</strong>, as advertised on <a href="${data.jobPostingLink}" target="_blank" style="color: #313f2c; text-decoration: none;">this job posting</a>.</p>`;
+            if (data.motivation) {
+                coverLetterHtml += `<p>${data.motivation}</p><br>`;
+            } else {
+                coverLetterHtml += `<p>My background aligns perfectly with the requirements, and I am confident that my experience can drive significant value to your team.</p><br>`;
+            }
+
+            // Achievements
+            const achievements = [data.achievement1, data.achievement2, data.achievement3].filter(Boolean);
+            if (achievements.length > 0) {
+                coverLetterHtml += `<p>Specifically, I bring a proven track record of success, including:</p><ul>`;
+                achievements.forEach(ach => {
+                    coverLetterHtml += `<li>${ach}</li>`;
+                });
+                coverLetterHtml += `</ul><br>`;
+            }
+
+            // Biggest Skill / Closing
+            if (data.biggestSkill) {
+                coverLetterHtml += `<p>My strongest asset, <strong>${data.biggestSkill}</strong>, will be particularly valuable in this role, and I am eager to discuss how my skills can contribute to ${data.companyName}'s ongoing success.</p>`;
+            } else {
+                coverLetterHtml += `<p>I am eager to discuss how my skills can contribute to ${data.companyName}'s ongoing success.</p>`;
+            }
+            
+            if (data.additionalNotes) {
+                coverLetterHtml += `<p>${data.additionalNotes}</p>`;
+            }
+            coverLetterHtml += `<p>Thank you for your time and consideration.</p><br>`;
+
+            // Signature
+            coverLetterHtml += `<p>Sincerely,</p><p><strong>${data.fullName}</strong></p>`;
+            if (data.phone) coverLetterHtml += `<p>${data.phone}</p>`;
+            if (data.email) coverLetterHtml += `<p>${data.email}</p>`;
+
+            document.getElementById('coverLetterTextPreview').innerHTML = coverLetterHtml;
+        }
+
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.option-button').classList.add('active');
+            document.getElementById('analyzeResume').classList.add('active');
+            document.getElementById('clipboard-helper').style.display = 'none'; // Ensure helper is hidden initially
+        });
+    </script>
+</body>
+</html>
